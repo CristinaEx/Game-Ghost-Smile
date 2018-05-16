@@ -1,6 +1,7 @@
 #pragma once
 #include "windows.h"
 #include "MusicPlayer.h"
+#include "StaticElement.h"
 
 //游戏引擎
 class GameEneginer {
@@ -22,5 +23,20 @@ public:
 		else {
 			//载入游戏
 		}
+	}
+	//进行活动
+	void run() {
+		paintPic(map.background);
+	}
+private:
+	//绘制图片
+	void paintPic(HBITMAP &bg , int x = 0,int y = 0) {
+		HDC g_hdc = GetDC(hwnd);
+		HDC mmhdc = CreateCompatibleDC(g_hdc);
+		SelectObject(mmhdc, bg);//将图片放到HDC上  
+		BitBlt(g_hdc, x, y, 960, 640, mmhdc, 0, 0, SRCCOPY);//拷贝到设备环境上  
+		DeleteDC(mmhdc);
+		DeleteObject(bg);
+		ReleaseDC(hwnd, g_hdc);
 	}
 };

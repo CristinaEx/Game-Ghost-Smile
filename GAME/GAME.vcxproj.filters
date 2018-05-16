@@ -39,6 +39,12 @@
     <ClInclude Include="GameEneginer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ElementFactory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticElement.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
