@@ -16,12 +16,12 @@ public:
     void play(std::string file_path_name,std::string command = "")
 	{
 		this->music_name = file_path_name;
-		mciSendString(TEXT(("open " + file_path_name).c_str()), NULL, 0, NULL);
+		mciSendString(TEXT(("open " + this->music_name).c_str()), NULL, 0, NULL);
 		mciSendString(TEXT(("play " + this->music_name + command).c_str()), NULL, 0, NULL);
 	}
 	//¹Ø±ÕÒôÀÖ
 	void close() {
-		if (music_name.size() > 0) {
+		if (!music_name.empty()) {
 			mciSendString(TEXT(("stop " + this->music_name).c_str()), NULL, 0, NULL);
 			mciSendString(TEXT(("close " + this->music_name).c_str()), NULL, 0, NULL);
 		}
