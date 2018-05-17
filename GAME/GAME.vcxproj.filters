@@ -45,6 +45,15 @@
     <ClInclude Include="StaticElement.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="wall.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Element.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

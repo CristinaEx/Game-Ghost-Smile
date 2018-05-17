@@ -4,6 +4,9 @@
 #include <fstream>  
 #include <sstream>
 #include <atlimage.h>
+#include "ElementFactory.h"
+#include <vector>
+#include "player.h"
 
 #define MAP_START 1601
 
@@ -11,6 +14,7 @@ class Map {
 public:
 	HBITMAP background;//地图的背景
 	MusicPlayer player;//音乐播放
+	std::vector<Element *> elements;//地图中的元素
 	int map_mode = 0;
 	Map() {}
 	Map(MusicPlayer player) {
@@ -38,10 +42,24 @@ public:
 				break;
 			default:
 				//其余行为map内成员
+				int pos = str.find(' ');
+				std::string data = str.substr(pos + 1);
+				elements.push_back(ElementFactory::getClass(str.substr(0, pos), data));
 				mode++;
 				break;
 			}
 		}
+
+	}
+
+	//x,y为当前player的坐标
+	void run(Player &player) {
+		for (auto element : elements)
+			element->run(player);
+	}
+	~Map() {
+		for (auto element : elements)
+			delete element;
 	}
 private:
 	std::string int2str(const int &int_temp)
