@@ -54,22 +54,22 @@ public:
 	}
 	//执行处理操作
 	void run() {
-		switch (mode & 0xfff0) {
+		switch (mode & 0xf0f0) {
 		case NORMAL_MODE | TO_RIGHT:
 			if(x <= 890)x += 10;
-			mode = mode & 0x1001;
+			mode = mode & 0xff0f;
 			break;
 		case NORMAL_MODE | TO_LEFT:
 			if (x >= 10)x -= 10; 
-			mode = mode & 0x1001;
+			mode = mode & 0xff0f;
 			break;
 		case NORMAL_MODE | TO_TOP:
 			if (y >= 10)y -= 10;
-			mode = mode & 0x1001;
+			mode = mode & 0xff0f;
 			break;
 		case NORMAL_MODE | TO_BUTTON:
 			if (y <= 500)y += 10;
-			mode = mode & 0x1001;
+			mode = mode & 0xff0f;
 		default:
 			break;
 		}

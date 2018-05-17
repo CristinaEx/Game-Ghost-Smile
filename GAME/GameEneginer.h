@@ -45,8 +45,9 @@ private:
 		DeleteDC(mmhdc);
 		ReleaseDC(hwnd, g_hdc);
 	}
-	//在底端绘制文字
-	void paintWord() {
+	//在底端框框内绘制文字
+	void paintWord(std::string word) {
 		//...
+
 	}
 };
