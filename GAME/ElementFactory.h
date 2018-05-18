@@ -5,12 +5,14 @@
 
 //游戏内动态或静态成员元素工厂
 //通过getClass获取每个元素的实例
+
 class ElementFactory {
 public:
 	static Element* getClass(std::string class_name,std::string data) {
 		if (class_name.compare("Wall") == 0) {
 			return new Wall(data);
 		}
+
 		//...
 	}
 private:

@@ -2,6 +2,8 @@
 #include "windows.h"
 #include "MusicPlayer.h"
 #include "player.h"
+#include "GameMessageBox.h"
+#include "map.h"
 
 //游戏引擎
 class GameEneginer {
@@ -9,8 +11,9 @@ public:
 	HWND hwnd;//主窗口句柄
 	Map map;//地图
 	Player player;//玩家
+	GameMessageBox box;//消息盒
 	GameEneginer() {}
-	GameEneginer(HWND &hwnd, MusicPlayer &player) {
+	GameEneginer(HWND &hwnd, MusicPlayer &player) : box(hwnd){
 		this->hwnd = hwnd;
 		map = Map(player);
 	}
@@ -32,7 +35,7 @@ public:
 		//加载玩家信息
 		player.run();
 		//地图元素
-		map.run(player);
+		map.run(player,box);
 		player.paint(hwnd);
 	}
 private:
@@ -44,10 +47,5 @@ private:
 		BitBlt(g_hdc, x, y, 960, 640, mmhdc, 0, 0, SRCCOPY);//拷贝到设备环境上  
 		DeleteDC(mmhdc);
 		ReleaseDC(hwnd, g_hdc);
-	}
-	//在底端框框内绘制文字
-	void paintWord(std::string word) {
-		//...
-
 	}
 };

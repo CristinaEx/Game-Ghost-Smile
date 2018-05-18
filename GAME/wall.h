@@ -21,7 +21,7 @@ public:
 		height = str2int(datas[3]);
 		pos = str2int(datas[4]);
 	}
-	void run(Player &player) {
+	void run(Player &player, GameMessageBox &box) {
 		if (!check(player.x, player.y))
 			return;
 		switch (pos) {

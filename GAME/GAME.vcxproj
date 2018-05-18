@@ -148,11 +148,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="button.h" />
+    <ClInclude Include="door.h" />
     <ClInclude Include="Element.h" />
     <ClInclude Include="ElementFactory.h" />
     <ClInclude Include="GAME.h" />
     <ClInclude Include="GameEneginer.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="GameMessageBox.h" />
     <ClInclude Include="MusicPlayer.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="Resource.h" />

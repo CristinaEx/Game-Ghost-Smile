@@ -1,3 +1,3 @@
 ﻿  GAME.cpp
-c:\users\95774\desktop\c++\game\game\elementfactory.h(15): warning C4715: “ElementFactory::getClass”: 不是所有的控件路径都返回值
+c:\users\95774\desktop\c++\game\game\elementfactory.h(17): warning C4715: “ElementFactory::getClass”: 不是所有的控件路径都返回值
   GAME.vcxproj -> C:\Users\95774\Desktop\C++\GAME\Debug\GAME.exe
