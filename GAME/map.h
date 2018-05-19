@@ -2,10 +2,8 @@
 #include <windows.h>
 #include <iostream>  
 #include <fstream>  
-#include <sstream>
 #include <atlimage.h>
 #include "ElementFactory.h"
-#include <vector>
 #include "player.h"
 
 #define MAP_START 1601
@@ -17,11 +15,13 @@ public:
 	std::vector<Element *> elements;//地图中的元素
 	int map_mode = 0;
 	Map() {}
-	Map(MusicPlayer player) {
+	Map(MusicPlayer &player) {
 		this->player = player;
 	}
 	//载入map
 	void init(int map_mode = MAP_START) {
+		player.close();
+		elements.clear();
 		this->map_mode = map_mode;
 		//载入地图
 		std::string str;

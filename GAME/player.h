@@ -1,8 +1,8 @@
 #pragma once
-#include "Element.h"
 #include <atlimage.h>
 #include <string>
 #include <sstream>
+#include <vector>
 
 #define RIGHT 0x0000
 #define LEFT 0x0001

@@ -1,8 +1,6 @@
 #pragma once
-#include <Windows.h>
-#include <vector>
-#include "player.h"
 #include "GameMessageBox.h"
+#include "player.h"
 
 class Element {
 public:

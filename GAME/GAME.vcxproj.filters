@@ -60,6 +60,15 @@
     <ClInclude Include="door.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Comment.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="boss.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="dog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

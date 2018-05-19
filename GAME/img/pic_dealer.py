@@ -30,5 +30,6 @@ def toBlack(pic_name):
     img.save(pic_name)
 
 if __name__ == '__main__':
-    toBlack('left_player.jpg')
+    # toBlack('left_player.jpg')
+    resize('1602.png')
     

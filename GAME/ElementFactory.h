@@ -1,7 +1,9 @@
 #pragma once
-#include<string>
-#include"wall.h"
-#include<vector>
+#include <string>
+#include "wall.h"
+#include "door.h"
+#include "map"
+#include "Comment.h"
 
 //游戏内动态或静态成员元素工厂
 //通过getClass获取每个元素的实例
@@ -12,7 +14,12 @@ public:
 		if (class_name.compare("Wall") == 0) {
 			return new Wall(data);
 		}
-
+		else if (class_name.compare("Door") == 0) {
+			return new Door(data);
+		}
+		else if (class_name.compare("Comment") == 0) {
+			return new Comment(data);
+		}
 		//...
 	}
 private:

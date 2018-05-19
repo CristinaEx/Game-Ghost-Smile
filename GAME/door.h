@@ -1,10 +1,13 @@
 #pragma once
 #include "StaticElement.h"
-#include "GameMessageBox.h"
+#include "map.h"
 
 class Door : public StaticElement {
 public:
-	int next_map;
+	int next_map;//下一张地图
+	int next_x;//人物出现在下一张地图的初始位置
+	int next_y;//人物出现在下一张地图的初始位置
+
 	Door(std::string data) {
 		//读取数据...
 		std::vector<std::string> datas = splitString(data, ' ');
@@ -13,10 +16,23 @@ public:
 		width = str2int(datas[2]);
 		height = str2int(datas[3]);
 		next_map = str2int(datas[4]);
+		next_x = str2int(datas[5]);
+		next_y = str2int(datas[6]);
 	}
+
+	//因为ElementFactory,map无法相互调用
+	//所以它会给GameMessageBox输出一个信息
 	void run(Player &player, GameMessageBox &box) {
 		if (!check(player.x, player.y))
 			return;
+		box.add("点击空格进入下一张地图", 30);
+		if (box.element_message == (PLAYER | CHECK_TRUE)) {
+			box.element_message = DOOR + next_map;
+			player.x = next_x;
+			player.y = next_y;
+		}
+			
+			
 	}
 private:
 	//使用c作为分隔符切割字符串s

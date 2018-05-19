@@ -1,7 +1,6 @@
 #pragma once
 #include "windows.h"
 #include "MusicPlayer.h"
-#include "player.h"
 #include "GameMessageBox.h"
 #include "map.h"
 
@@ -16,6 +15,7 @@ public:
 	GameEneginer(HWND &hwnd, MusicPlayer &player) : box(hwnd){
 		this->hwnd = hwnd;
 		map = Map(player);
+
 	}
 	//游戏内容初始化
 	//若data_path为NULL，则创建新游戏
@@ -36,7 +36,9 @@ public:
 		player.run();
 		//地图元素
 		map.run(player,box);
+		dealMeaasge();
 		player.paint(hwnd);
+		box.run();
 	}
 private:
 	//绘制图片
@@ -47,5 +49,21 @@ private:
 		BitBlt(g_hdc, x, y, 960, 640, mmhdc, 0, 0, SRCCOPY);//拷贝到设备环境上  
 		DeleteDC(mmhdc);
 		ReleaseDC(hwnd, g_hdc);
+	}
+
+	//处理messagebox的消息
+	void dealMeaasge() {
+		if (box.mode == 0)
+			return;
+		switch (box.element_message & 0xf000) {
+		case PLAYER:
+			break;
+		case DOOR:
+			map.init(0x0fff & box.element_message);
+			box.element_message = CHECK_EMPTY;
+			break;
+		default:
+			break;
+		}
 	}
 };

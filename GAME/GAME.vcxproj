@@ -148,6 +148,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="button.h" />
+    <ClInclude Include="Comment.h" />
+    <ClInclude Include="dog.h" />
     <ClInclude Include="door.h" />
     <ClInclude Include="Element.h" />
     <ClInclude Include="ElementFactory.h" />
@@ -156,6 +158,7 @@
     <ClInclude Include="map.h" />
     <ClInclude Include="GameMessageBox.h" />
     <ClInclude Include="MusicPlayer.h" />
+    <ClInclude Include="boss.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StaticElement.h" />
