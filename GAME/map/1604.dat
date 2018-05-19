@@ -1,2 +1,6 @@
-img\map\1603.png
-bgm\Singer.wav
+img\map\1604.png
+bgm\talk.wav
+Door 0 150 30 490 1601 900 370
+Wall 0 110 960 20 4
+Door 670 90 150 50 1603 740 500
+Door 90 90 150 50 1605 250 500

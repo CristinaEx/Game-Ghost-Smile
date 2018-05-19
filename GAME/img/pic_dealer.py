@@ -7,8 +7,16 @@ def resize(pic_name,size = (960,640),save_name = 'test.png'):
     img.save(save_name)
 
 def cut(pic_name,x,y,width = 960,height = 640,save_name = 'test.png'):
+    """
+    x:横坐标
+    y:纵坐标
+    width:宽度
+    heighte:高度
+    save_name:处理后的图片保存的文件名
+    """
     img = Image.open(pic_name)
     img = img.crop((x,y,x+width,y+height))
+    img.show()
     img.save(save_name)
 
 def transpose(pic_name,save_name = 'test.jpg'):
@@ -30,7 +38,7 @@ def toBlack(pic_name):
     img.save(pic_name)
 
 if __name__ == '__main__':
-    # cut('papyrus_left.jpg',205,0,265,407,'test.jpg')
+    cut('s4.jpg',370,90,110,140,'test.jpg')
     # resize('test.jpg',(65,100),'test1.jpg')
-   resize('1603.png')
+    # resize('1604.png')
     
