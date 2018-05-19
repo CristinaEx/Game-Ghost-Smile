@@ -69,6 +69,12 @@
     <ClInclude Include="dog.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Sans.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SpecialAttack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

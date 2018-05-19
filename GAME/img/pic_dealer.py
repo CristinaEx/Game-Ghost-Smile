@@ -32,5 +32,5 @@ def toBlack(pic_name):
 if __name__ == '__main__':
     # cut('papyrus_left.jpg',205,0,265,407,'test.jpg')
     # resize('test.jpg',(65,100),'test1.jpg')
-   resize('over.jpg',save_name = 'over.jpg')
+   resize('1603.png')
     

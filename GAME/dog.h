@@ -52,7 +52,7 @@ public:
 			box.add("草地上好像有一只可爱的小狗。", 30);
 			break;
 		case 80:
-			box.add("看起来是一只活泼的小狗呢!", 30);
+			box.add("看起来还是一只活泼的小狗呢!", 30);
 			break;
 		case 120:
 			box.add("它好像注意到你了!", 30);
@@ -77,6 +77,9 @@ public:
 		case 1360:
 			box.add("(走近后点击空格)", 900);
 			break;
+		case 2160:
+			count = 120;
+			break;
 		default:
 			break;
 		}
@@ -91,7 +94,7 @@ public:
 				mode = (mode & 0x0fff) | ATTACK_MODE;
 				attack_x = player.x;
 				attack_y = player.y;
-				sleep = 30;
+				sleep = 30;//攻击模式间隔30帧
 			}
 			else {
 				if (abs(x - player.x) > abs(y - player.y))
