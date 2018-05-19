@@ -11,7 +11,7 @@ def cut(pic_name,x,y,width = 960,height = 640,save_name = 'test.png'):
     img = img.crop((x,y,x+width,y+height))
     img.save(save_name)
 
-def transpose(pic_name,save_name = 'test.png'):
+def transpose(pic_name,save_name = 'test.jpg'):
     img = Image.open(pic_name)
     out = img.transpose(Image.FLIP_LEFT_RIGHT) 
     out.save(save_name)
@@ -30,6 +30,7 @@ def toBlack(pic_name):
     img.save(pic_name)
 
 if __name__ == '__main__':
-    # toBlack('left_player.jpg')
-    resize('1602.png')
+    # cut('papyrus_left.jpg',205,0,265,407,'test.jpg')
+    # resize('test.jpg',(65,100),'test1.jpg')
+   resize('over.jpg',save_name = 'over.jpg')
     

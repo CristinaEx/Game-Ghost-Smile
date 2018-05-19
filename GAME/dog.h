@@ -1,18 +1,130 @@
 #pragma once
 #include "boss.h"
+#include <math.h>
+
+#define ATTACK_MODE 0x2000
+#define TIRED_MODE 0x3000
+#define END_MODE 0x4000
 
 class Dog : public Boss {
 public:
+	//攻击模式攻击的点
+	int attack_x;
+	int attack_y;
 	int count = 0;//记录当前流程
+	int sleep = 0;//攻击间隔
 	Dog(std::string data) {
 		std::vector<std::string> datas = splitString(data, ' ');
 		x = str2int(datas[0]);
 		y = str2int(datas[1]);
-		mode = START_MODE;
-		std::string path = datas[2];//贴图的位置
+		mode = START_MODE | LEFT;
 		CImage img;
-		img.Load("img\\right_dog.jpg");
-		//...
+		img.Load("img\\dog\\right_dog.jpg");
+		pic.push_back(img.Detach());
+		img.Load("img\\dog\\left_dog.jpg");
+		pic.push_back(img.Detach());
+	}
+
+	void paint(HWND &hwnd) {
+		HDC g_hdc = GetDC(hwnd);
+		HDC mmhdc = CreateCompatibleDC(g_hdc);
+		int index;
+		switch (mode & 0x000f) {
+		case RIGHT:
+			index = 0;
+			break;
+		case LEFT:
+			index = 1;
+			break;
+		default:
+			index = 0;
+			break;
+		}
+		SelectObject(mmhdc, pic[index]);//将图片放到HDC上  
+		TransparentBlt(g_hdc, x, y, 50, 50, mmhdc, 0, 0, 50, 50, RGB(1, 1, 1));//RGB(1,1,1)代表自定义黑色  																   //BitBlt(g_hdc, x, y, 100, 150, mmhdc, 0, 0, SRCCOPY);//拷贝到设备环境上  
+		DeleteDC(mmhdc);
+		ReleaseDC(hwnd, g_hdc);
+	}
+
+	void run(Player &player, GameMessageBox &box) {
+		switch (count) {
+		case 40:
+			box.add("草地上好像有一只可爱的小狗。", 30);
+			break;
+		case 80:
+			box.add("看起来是一只活泼的小狗呢!", 30);
+			break;
+		case 120:
+			box.add("它好像注意到你了!", 30);
+			break;
+		case 160:
+			box.add("是想找你...玩吗？", 30);
+			break;
+		case 200:
+			mode = (mode & 0x0fff) | NORMAL_MODE;
+			break;
+		case 1000:
+			box.add("它看起来有点累了。", 30);
+			break;
+		case 1300:
+			box.add("它看起来累坏了。", 30);
+			mode = (mode & 0x0fff) | TIRED_MODE;
+			box.element_message = CHECK_EMPTY;
+			break;
+		case 1330:
+			box.add("快趁它累坏的时候摸下它吧!。", 30);
+			break;
+		case 1360:
+			box.add("(走近后点击空格)", 900);
+			break;
+		default:
+			break;
+		}
+		switch (mode & 0xf000) {
+		case START_MODE:
+			break;
+		case NORMAL_MODE:
+			if (x > player.x)mode = (mode & 0xfff0) | LEFT;
+			else mode = (mode & 0xfff0) | RIGHT;
+
+			if (sleep < 0 && pow(x - player.x,2) + pow(y - player.y,2) <= 22500) {
+				mode = (mode & 0x0fff) | ATTACK_MODE;
+				attack_x = player.x;
+				attack_y = player.y;
+				sleep = 30;
+			}
+			else {
+				if (abs(x - player.x) > abs(y - player.y))
+					x += (x > player.x ? -5 : 5);
+				else
+					y += (y > player.y ? -5 : 5);
+				sleep--;
+			}
+			break;
+		case ATTACK_MODE:
+			if (pow(x - player.x, 2) + pow(y - player.y, 2) <= 1600) {
+				player.hp_now -= 1;
+			}
+			if(abs(x - attack_x) <= 20 && abs(y - attack_y) <= 20)
+				mode = (mode & 0x0fff) | NORMAL_MODE;
+			else {
+				x += (x > attack_x ? -20 : 20);
+				y += (y > attack_y ? -20 : 20);
+			}
+			break;
+		case TIRED_MODE:
+			if (pow(x - player.x, 2) + pow(y - player.y, 2) <= 1600 && (box.element_message == (PLAYER | CHECK_TRUE))) {
+				player.exp_now += 20;
+				box.add("笑摸狗头。", 30);
+				mode = (mode & 0x0fff) | END_MODE;
+			}
+			break;
+		case END_MODE:
+			break;
+		default:
+			break;
+		}
+		count++;
 	}
 private:
 	//使用c作为分隔符切割字符串s

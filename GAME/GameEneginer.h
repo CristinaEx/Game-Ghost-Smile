@@ -15,7 +15,6 @@ public:
 	GameEneginer(HWND &hwnd, MusicPlayer &player) : box(hwnd){
 		this->hwnd = hwnd;
 		map = Map(player);
-
 	}
 	//游戏内容初始化
 	//若data_path为NULL，则创建新游戏
@@ -31,16 +30,23 @@ public:
 	}
 	//进行活动
 	void run() {
-		paintPic(map.background);
-		//加载玩家信息
-		player.run();
-		//地图元素
-		map.run(player,box);
-		dealMeaasge();
-		player.paint(hwnd);
+		//处理玩家死亡消息
+		if (player.hp_now <= 0)
+			over();
+		else {
+			paintPic(map.background);
+			//加载玩家信息
+			player.run();
+			//地图元素
+			map.run(player, box);
+			dealMeaasge();
+			map.paint(hwnd);
+			player.paint(hwnd);
+		}
 		box.run();
 	}
 private:
+
 	//绘制图片
 	void paintPic(HBITMAP &bg , int x = 0,int y = 0) {
 		HDC g_hdc = GetDC(hwnd);
@@ -49,6 +55,27 @@ private:
 		BitBlt(g_hdc, x, y, 960, 640, mmhdc, 0, 0, SRCCOPY);//拷贝到设备环境上  
 		DeleteDC(mmhdc);
 		ReleaseDC(hwnd, g_hdc);
+	}
+
+	//死亡界面
+	void over() {
+		box.add("Game Over ! (继续请按空格,返回标题画面请按回车)", 30);
+		if (player.hp_now == 0) {
+			map.player.close();
+			CImage img;
+			img.Load("img\\over.jpg");
+			HBITMAP bg = img.Detach();
+			paintPic(bg);
+			map.player.play("bgm\\start.wav");
+			player.hp_now = -1;
+			box.element_message = GAMEENEGINER | CHECK_EMPTY;
+		}
+		else{
+			if (box.element_message == (PLAYER | CHECK_TRUE)) {
+				player.hp_now = player.hp_max;
+				map.init(map.map_mode);
+			}
+		}
 	}
 
 	//处理messagebox的消息

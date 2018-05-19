@@ -10,6 +10,7 @@
 
 #define PLAYER 0x1000
 #define DOOR 0x2000
+#define GAMEENEGINER 0x3000
 
 class GameMessageBox {
 public:
@@ -21,6 +22,7 @@ public:
 	GameMessageBox(){}
 	GameMessageBox(HWND &hwnd) {
 		this->hwnd = hwnd;
+		element_message = CHECK_EMPTY;
 	}
 	void run() {
 		if (mode == end_mode) {

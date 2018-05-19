@@ -52,11 +52,16 @@ public:
 
 	}
 
-	//x,y为当前player的坐标
 	void run(Player &player, GameMessageBox &box) {
 		for (auto element : elements)
 			element->run(player,box);
 	}
+
+	void paint(HWND &hwnd) {
+		for (auto element : elements)
+			element->paint(hwnd);
+	}
+
 	~Map() {
 		for (auto element : elements)
 			delete element;

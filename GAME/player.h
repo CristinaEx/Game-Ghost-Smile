@@ -40,9 +40,9 @@ public:
 		hp_now = 20;
 		exp_now = 0;
 		CImage img;
-		img.Load("img\\right_player.jpg");
+		img.Load("img\\player\\right_player.jpg");
 		pic.push_back(img.Detach());
-		img.Load("img\\left_player.jpg");
+		img.Load("img\\player\\left_player.jpg");
 		pic.push_back(img.Detach());
 		x = 200;
 		y = 400;
@@ -54,6 +54,14 @@ public:
 	}
 	//执行处理操作
 	void run() {
+		//处理升级操作
+		while (exp_max <= exp_now) {
+			exp_now -= exp_max;
+			exp_max *= 2;
+			hp_max += 5;
+			hp_now = hp_max;
+			level++;
+		}
 		switch (mode & 0xf0f0) {
 		case NORMAL_MODE | TO_RIGHT:
 			if(x <= 890)x += 10;

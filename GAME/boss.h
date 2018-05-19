@@ -1,7 +1,7 @@
 #pragma once
 #include "Element.h"
 
-#define START_MODE 0
+#define START_MODE 0xf000
 
 class Boss : public Element {
 public:
