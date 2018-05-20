@@ -203,14 +203,43 @@ public:
 				sleep = 60;
 			else
 				sleep--;
-			if (sleep < 30 && sleep > 0 && sleep % 5 == 0) {
-				(attacks[6 + sleep / 5])->x = player.x;
-				(attacks[6 + sleep / 5])->y = player.y;
-				(attacks[6 + sleep / 5])->count = 30;
+			if (sleep <= 30 && sleep > 0 && sleep % 5 == 0) {
+				(attacks[5 + sleep / 5])->x = player.x;
+				(attacks[5 + sleep / 5])->y = player.y;
+				(attacks[5 + sleep / 5])->count = 30;
 			}
 			break;
 		case SANS_ATTACK_MODE_2:
-			//...
+			if (sleep <= 0)
+				sleep = 60;
+			else
+				sleep--;
+			if (sleep <= 45 && sleep >= 20 && sleep % 5 == 0) {
+				int mode = rand() % (LINE_TOP - LINE_RIGHT + 1) + LINE_RIGHT;
+				switch (mode) {
+				case LINE_LEFT:
+					(attacks[sleep / 5 - 4])->x = 0;
+					(attacks[sleep / 5 - 4])->y = player.y;
+					break;
+				case LINE_RIGHT:
+					(attacks[sleep / 5 - 4])->x = 900;
+					(attacks[sleep / 5 - 4])->y = player.y;
+					break;
+				case LINE_TOP:
+					(attacks[sleep / 5 - 4])->x = player.x;
+					(attacks[sleep / 5 - 4])->y = 100;
+					break;
+				case LINE_BUTTON:
+					(attacks[sleep / 5 - 4])->x = player.x;
+					(attacks[sleep / 5 - 4])->y = 500;
+					break;
+				default:
+					break;
+				}
+				(attacks[sleep / 5 - 4])->count = 45;
+				((LineAttack *)(attacks[sleep / 5 - 4]))->sleep = 0;
+				((LineAttack *)(attacks[sleep / 5 - 4]))->mode = mode;
+			}
 			break;
 		case SANS_ATTACK_MODE_3:
 			if (sleep <= 0) {

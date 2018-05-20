@@ -36,6 +36,7 @@ public:
 			SelectObject(mmhdc,img.Detach());//将图片放到HDC上  
 			TransparentBlt(g_hdc, x, y, 50, 50, mmhdc, 0, 0, 50, 50, RGB(1, 1, 1));//RGB(1,1,1)代表自定义黑色 
 			DeleteDC(mmhdc);
+			ReleaseDC(hwnd, g_hdc);
 		}
 		ReleaseDC(hwnd, g_hdc);
 	}
