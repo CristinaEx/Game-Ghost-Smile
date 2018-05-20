@@ -35,16 +35,20 @@ public:
 			//创建实线，宽度为2，白色的笔
 			HPEN hPen = CreatePen(PS_SOLID, 2, RGB(255, 255, 255));
 			//将笔选入DC
-			HPEN hOldPen = (HPEN)SelectObject(g_hdc, hPen);
+			HPEN *hOldPen = (HPEN*)SelectObject(g_hdc, hPen);
 			//创建一个黑色的刷子
 			HBRUSH hBrush = CreateSolidBrush(RGB(0, 0, 0));
-			HBRUSH hOldBrush = (HBRUSH)SelectObject(g_hdc, hBrush);
+			HBRUSH *oldBrush = (HBRUSH*)SelectObject(g_hdc, hBrush);
 			//绘制矩形，因为笔没有换，所以绘制的是白色边框，黑色区域的矩形
 			Rectangle(g_hdc, 150, 545, 750, 570);
 			SetTextColor(g_hdc, RGB(255, 255, 255));
 			SetBkColor(g_hdc, RGB(0, 0, 0));
 			TextOut(g_hdc, 200, 550, word.c_str(), word.length());
 			ReleaseDC(hwnd, g_hdc);
+			SelectObject(g_hdc, oldBrush);
+			DeleteObject(hBrush);
+			SelectObject(g_hdc, hOldPen);
+			DeleteObject(hPen);
 			mode++;
 		}
 	}

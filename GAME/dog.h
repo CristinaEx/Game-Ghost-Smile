@@ -21,12 +21,16 @@ public:
 		CImage img;
 		img.Load("img\\dog\\right_dog.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 		img.Load("img\\dog\\left_dog.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 		img.Load("img\\dog\\pre_dog.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 		img.Load("img\\dog\\tired_dog.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 	}
 
 	void paint(HWND &hwnd) {
@@ -56,8 +60,9 @@ public:
 				break;
 			}
 		}
-		SelectObject(mmhdc, pic[index]);//将图片放到HDC上  
-		TransparentBlt(g_hdc, x, y, 50, 50, mmhdc, 0, 0, 50, 50, RGB(1, 1, 1));//RGB(1,1,1)代表自定义黑色  																   //BitBlt(g_hdc, x, y, 100, 150, mmhdc, 0, 0, SRCCOPY);//拷贝到设备环境上  
+		HBITMAP *hp = (HBITMAP *)SelectObject(mmhdc, pic[index]);//将图片放到HDC上  
+		TransparentBlt(g_hdc, x, y, 50, 50, mmhdc, 0, 0, 50, 50, RGB(1, 1, 1));//RGB(1,1,1)代表自定义黑色  	
+		SelectObject(g_hdc, hp);
 		DeleteDC(mmhdc);
 		ReleaseDC(hwnd, g_hdc);
 	}
@@ -171,5 +176,9 @@ private:
 		int int_temp;
 		stream >> int_temp;
 		return int_temp;
+	}
+	~Dog() {
+		for (HBITMAP hp : pic)
+			DeleteObject(hp);
 	}
 };

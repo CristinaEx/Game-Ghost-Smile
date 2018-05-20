@@ -42,10 +42,12 @@ public:
 		CImage img;
 		img.Load("img\\player\\right_player.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 		img.Load("img\\player\\left_player.jpg");
 		pic.push_back(img.Detach());
 		x = 200;
 		y = 400;
+		img.Destroy();
 	}
 	//绘制
 	void paint(HWND hwnd) {
@@ -82,6 +84,10 @@ public:
 			break;
 		}
 	}
+	~Player() {
+		for (HBITMAP hp : pic)
+			DeleteObject(hp);
+	}
 private:
 	//打印当前信息
 	void paintMessage(HWND hwnd) {
@@ -111,9 +117,10 @@ private:
 			index = 0;
 			break;
 		}
-		SelectObject(mmhdc, pic[index]);//将图片放到HDC上  
+		HBITMAP *hp = (HBITMAP *)SelectObject(mmhdc, pic[index]);//将图片放到HDC上  
 		TransparentBlt(g_hdc, x, y, 50, 75, mmhdc, 0, 0, 50, 75, RGB(1, 1, 1));//RGB(1,1,1)代表自定义黑色  
 		//BitBlt(g_hdc, x, y, 100, 150, mmhdc, 0, 0, SRCCOPY);//拷贝到设备环境上  
+		SelectObject(mmhdc, hp);
 		DeleteDC(mmhdc);
 		ReleaseDC(hwnd, g_hdc);
 	}

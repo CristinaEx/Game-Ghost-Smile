@@ -37,24 +37,34 @@ public:
 		CImage img;
 		img.Load("img\\Sans\\sans_talk_1.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 		img.Load("img\\Sans\\sans_talk_2.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 		img.Load("img\\Sans\\sans_talk_3.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 		img.Load("img\\Sans\\sans_talk_4.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 		img.Load("img\\Sans\\sans_attack_1.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 		img.Load("img\\Sans\\sans_attack_2.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 		img.Load("img\\Sans\\sans_attack_3.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 		img.Load("img\\Sans\\sans_normal_1.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 		img.Load("img\\Sans\\sans_normal_2.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 		img.Load("img\\Sans\\sans_tired.jpg");
 		pic.push_back(img.Detach());
+		img.Destroy();
 		attacks.push_back(new LineAttack(0, 0, 1, 1));
 		attacks.push_back(new LineAttack(0, 0, 1, 1));
 		attacks.push_back(new LineAttack(0, 0, 1, 1));
@@ -111,13 +121,15 @@ public:
 			index = 9;
 			break;
 		case SANS_END_MODE:
+			index = 9;
 			break;
 		default:
 			index = 0;
 			break;
 		}
-		SelectObject(mmhdc, pic[index]);//将图片放到HDC上  
-		TransparentBlt(g_hdc, x, y, 100, 100, mmhdc, 0, 0, 100, 100, RGB(1, 1, 1));//RGB(1,1,1)代表自定义黑色  																   //BitBlt(g_hdc, x, y, 100, 150, mmhdc, 0, 0, SRCCOPY);//拷贝到设备环境上  
+		HBITMAP *hp = (HBITMAP *)SelectObject(mmhdc, pic[index]);//将图片放到HDC上  
+		TransparentBlt(g_hdc, x, y, 100, 100, mmhdc, 0, 0, 100, 100, RGB(1, 1, 1));//RGB(1,1,1)代表自定义黑色  	
+		SelectObject(mmhdc, hp);
 		DeleteDC(mmhdc);
 		ReleaseDC(hwnd, g_hdc);
 		for (auto attack : attacks)
@@ -165,14 +177,57 @@ public:
 		case 580:
 			mode = SANS_ATTACK_MODE_3;
 			break;
-		case 9000:
+		case 1000:
+			box.add("Sans:你注意到了吗?你的SET，你的BGM BOX都无法使用了。", 90);
+			break;
+		case 1100:
+			box.add("Sans:还有你的存档，你的攻击全部被我们剥夺了。", 90);
+			break;
+		case 1200:
+			box.add("Sans:放弃吧，这对你我都有好处。", 90);
+			break;
+		case 1300:
+			box.add("Sans:我想你是不愿意在一个无法胜利的游戏上浪费时间的。", 90);
+			break;
+		case 1400:
+			box.add("Sans:还是说，你想顽抗到底?", 90);
+			break;
+		case 1500:
+			box.add("Sans:我是不会让你过去的，你认为你能坚持到我疲惫，那你尽管来试试吧!", 90);
+			break;
+		case 3000:
+			box.add("Snas:你很不错嘛，以往没有人可以坚持到这。", 90);
+			break;
+		case 3100:
+			box.add("Snas:不错得甚至让人觉得，你是不是耍了什么把戏?", 90);
+			break;
+		case 4000:
+			box.add("Snas:呼。", 90);
+			break;
+		case 5200:
+			box.add("Snas:好吧，玩家。我可能要输了。", 90);
+			break;
+		case 5300:
+			box.add("Snas:但我要警告你，不要相信\"那个\"东西。", 90);
+			break;
+		case 5400:
+			box.add("Snas:它一直在你的耳边。", 90);
+			break;
+		case 5500:
+			box.add("看起来Sans已经很累了。", 90);
 			mode = SANS_TIRED_MODE;
+			break;
+		case 5600:
+			box.add("快趁Sans很累的时候拆他一根骨头做为纪念吧。", 90);
+			break;
+		case 5700:
+			box.add("(走近后点击空格)", 900);
 			break;
 		default:
 			break;
 		}
 		//随机进行攻击
-		if (count >= 600 && count <= 9000) {
+		if (count >= 600 && count <= 5500) {
 			if(sleep <= 0)mode = rand() % (SANS_ATTACK_MODE_2 - SANS_ATTACK_MODE_1 + 1) + SANS_ATTACK_MODE_1;
 			if (mode != SANS_ATTACK_MODE_3 && pow(player.x - x, 2) + pow(player.y - y, 2) <= 10000 && sleep <= 20) {
 				mode = SANS_ATTACK_MODE_3;
@@ -259,7 +314,11 @@ public:
 				sleep--;
 			break;
 		case SANS_TIRED_MODE:
-			//...
+			if (pow(x - player.x, 2) + pow(y - player.y, 2) <= 1600 && (box.element_message == (PLAYER | CHECK_TRUE))) {
+				player.exp_now += 100;
+				box.add("看起来很疼的样子。", 50);
+				mode = SANS_END_MODE;
+			}
 			break;
 		case SANS_END_MODE:
 			//...
@@ -301,5 +360,7 @@ private:
 	~Sans() {
 		for (auto attack : attacks)
 			delete attack;
+		for (HBITMAP hp : pic)
+			DeleteObject(hp);
 	}
 };

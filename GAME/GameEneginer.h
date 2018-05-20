@@ -51,8 +51,9 @@ private:
 	void paintPic(HBITMAP &bg , int x = 0,int y = 0) {
 		HDC g_hdc = GetDC(hwnd);
 		HDC mmhdc = CreateCompatibleDC(g_hdc);
-		SelectObject(mmhdc, bg);//将图片放到HDC上  
+		HBITMAP *hp = (HBITMAP *)SelectObject(mmhdc, bg);//将图片放到HDC上  
 		BitBlt(g_hdc, x, y, 960, 640, mmhdc, 0, 0, SRCCOPY);//拷贝到设备环境上  
+		SelectObject(mmhdc, hp);
 		DeleteDC(mmhdc);
 		ReleaseDC(hwnd, g_hdc);
 	}
@@ -69,6 +70,8 @@ private:
 			map.player.play("bgm\\start.wav");
 			player.hp_now = -1;
 			box.element_message = GAMEENEGINER | CHECK_EMPTY;
+			DeleteObject(bg);
+			img.Destroy();
 		}
 		else{
 			if (box.element_message == (PLAYER | CHECK_TRUE)) {

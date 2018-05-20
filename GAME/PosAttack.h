@@ -6,11 +6,16 @@ class PosAttack : public SpecialAttack {
 public:
 	//count : 30~15->预警 15~0->攻击
 	int sleep = 10;//造成伤害后的延时
+	HBITMAP img;
 
 	PosAttack(int x, int y ,int demage) {
 		this->x = x;
 		this->y = y;
 		this->demage = demage;
+		CImage img;
+		img.Load("img\\attack\\pos_attack.jpg");
+		this->img = img.Detach();
+		img.Destroy();
 	}
 
 	void paint(HWND &hwnd) {
@@ -19,7 +24,7 @@ public:
 			//创建实线，宽度为2，红色的笔
 			HPEN hPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
 			//将笔选入DC
-			HPEN hOldPen = (HPEN)SelectObject(g_hdc, hPen);
+			HPEN *hOldPen = (HPEN*)SelectObject(g_hdc, hPen);
 			MoveToEx(g_hdc, x, y, NULL);
 			LineTo(g_hdc, x + 50, y);
 			MoveToEx(g_hdc, x + 50, y, NULL);
@@ -28,15 +33,15 @@ public:
 			LineTo(g_hdc, x, y + 50);
 			MoveToEx(g_hdc, x, y + 50, NULL);
 			LineTo(g_hdc, x, y);
+			SelectObject(g_hdc, hOldPen);
+			DeleteObject(hPen);
 		}
 		else if(count != 0){
-			CImage img;
-			img.Load("img\\attack\\pos_attack.jpg");
 			HDC mmhdc = CreateCompatibleDC(g_hdc);
-			SelectObject(mmhdc,img.Detach());//将图片放到HDC上  
+			HBITMAP *hp = (HBITMAP *)SelectObject(mmhdc,img);//将图片放到HDC上  
 			TransparentBlt(g_hdc, x, y, 50, 50, mmhdc, 0, 0, 50, 50, RGB(1, 1, 1));//RGB(1,1,1)代表自定义黑色 
+			SelectObject(g_hdc, hp);
 			DeleteDC(mmhdc);
-			ReleaseDC(hwnd, g_hdc);
 		}
 		ReleaseDC(hwnd, g_hdc);
 	}
@@ -52,5 +57,9 @@ public:
 				sleep--;
 		}
 		count--;
+	}
+private:
+	~PosAttack() {
+		DeleteObject(img);
 	}
 };

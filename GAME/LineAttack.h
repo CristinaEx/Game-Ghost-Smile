@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "SpecialAttack.h"
 
 #define LINE_AUTO 0
@@ -16,42 +17,55 @@ public:
 	//count : 45~15->预警 15~0->攻击
 	int mode;//mode = 0
 	int sleep = 0;
+	std::vector<HBITMAP> imgs;
 	LineAttack(int x, int y, int demage,int mode) {
 		this->x = x;
 		this->y = y;
 		this->demage = demage;
 		mode = mode;
+		CImage img;
+		img.Load("img\\attack\\line_attack_right.jpg");
+		imgs.push_back(img.Detach());
+		img.Destroy();
+		img.Load("img\\attack\\line_attack_button.jpg");
+		imgs.push_back(img.Detach());
+		img.Destroy();
+		img.Load("img\\attack\\line_attack_left.jpg");
+		imgs.push_back(img.Detach());
+		img.Destroy();
+		img.Load("img\\attack\\line_attack_top.jpg");
+		imgs.push_back(img.Detach());
+		img.Destroy();
 	}
 	void paint(HWND &hwnd) {
 		HDC g_hdc = GetDC(hwnd);
 		HDC mmhdc = CreateCompatibleDC(g_hdc);
 		if (mode != 0 && count != 0) {
-			CImage img;
+			int index;
 			switch (mode) {
 			case LINE_RIGHT:
-				img.Load("img\\attack\\line_attack_right.jpg");
+				index = 0;
 				break;
 			case LINE_BUTTON:
-				img.Load("img\\attack\\line_attack_button.jpg");
+				index = 1;
 				break;
 			case LINE_LEFT:
-				img.Load("img\\attack\\line_attack_left.jpg");
+				index = 2;
 				break;
 			case LINE_TOP:
-				img.Load("img\\attack\\line_attack_top.jpg");
+				index = 3;
 				break;
 			default:
-				img.Load("img\\attack\\line_attack_right.jpg");
 				break;
 			}
 			//旋转
-			SelectObject(mmhdc, img.Detach());//将图片放到HDC上  
+			SelectObject(mmhdc, imgs[index]);//将图片放到HDC上  
 			TransparentBlt(g_hdc, x, y, 50, 50, mmhdc, 0, 0, 50, 50, RGB(1, 1, 1));//RGB(1,1,1)代表自定义黑色 
 			//绘制攻击图片
 			if (count <= 15) {
 				//创建一个黑色的刷子
 				HBRUSH hBrush = CreateSolidBrush(RGB(255, 255, 255));
-				HBRUSH hOldBrush = (HBRUSH)SelectObject(g_hdc, hBrush);
+				HBRUSH *oldBrush = (HBRUSH*)SelectObject(g_hdc, hBrush);
 				switch (mode) {
 				case LINE_RIGHT:
 					Rectangle(g_hdc, 0, y, 900, y+50);
@@ -68,6 +82,8 @@ public:
 				default:
 					break;
 				}
+				SelectObject(g_hdc, oldBrush);
+				DeleteObject(hBrush);
 			}
 		}
 		DeleteDC(mmhdc);
@@ -120,10 +136,8 @@ private:
 	void paintTranspose(int width, int height, int alpha,HWND &hwnd) {
 		HDC g_hdc = GetDC(hwnd);
 		HDC mmhdc = CreateCompatibleDC(g_hdc);
-		CImage img;
-		img.Load("img\\attack\\line_attack.jpg");
 		//旋转
-		SelectObject(mmhdc, img.Detach());//将图片放到HDC上  
+		HBITMAP *hp = (HBITMAP *)SelectObject(mmhdc, imgs[3]);//将图片放到HDC上  
 		for (int i = 0; i < width; i++)
 			for (int j = 0; j < height; j++)
 			{
@@ -132,7 +146,12 @@ private:
 				int desty = (int)(i * sin(alpha*PI/180) + j * cos(alpha*PI/180));
 				if(i < width && j < height)BitBlt(g_hdc, destx + x, desty + y, 1, 1, mmhdc, i, j, SRCCOPY);
 			}
+		SelectObject(g_hdc,hp);
 		DeleteDC(mmhdc);
 		ReleaseDC(hwnd, g_hdc);
+	}
+	~LineAttack() {
+		for (HBITMAP hp : imgs)
+			DeleteObject(hp);
 	}
 };

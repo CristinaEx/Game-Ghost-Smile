@@ -20,6 +20,7 @@ public:
 	}
 	//ÔØÈëmap
 	void init(int map_mode = MAP_START) {
+		DeleteObject(background);
 		player.close();
 		elements.clear();
 		this->map_mode = map_mode;
@@ -49,7 +50,7 @@ public:
 				break;
 			}
 		}
-
+		img.Destroy();
 	}
 
 	void run(Player &player, GameMessageBox &box) {
