@@ -16,12 +16,17 @@ def cut(pic_name,x,y,width = 960,height = 640,save_name = 'test.png'):
     """
     img = Image.open(pic_name)
     img = img.crop((x,y,x+width,y+height))
-    img.show()
+    # img.show()
     img.save(save_name)
 
-def transpose(pic_name,save_name = 'test.jpg'):
+def transposeMirror(pic_name,save_name = 'test.jpg'):
     img = Image.open(pic_name)
     out = img.transpose(Image.FLIP_LEFT_RIGHT) 
+    out.save(save_name)
+
+def transpose(pic_name,save_name = 'test.jpg',trans = Image.ROTATE_90):
+    img = Image.open(pic_name)
+    out = img.transpose(trans) 
     out.save(save_name)
 
 def toBlack(pic_name):
@@ -34,11 +39,12 @@ def toBlack(pic_name):
                 img.putpixel((w,h),1)
             elif img.getpixel((w,h)) > 200:
                 img.putpixel((w,h),255)
-    img.show()
+    # img.show()
     img.save(pic_name)
 
 if __name__ == '__main__':
-    cut('s4.jpg',370,90,110,140,'test.jpg')
-    # resize('test.jpg',(65,100),'test1.jpg')
+    cut('2.jpg',330,300,140,100,'test.jpg')
+    # transpose('test.jpg')
+    resize('test.jpg',(50,50),'test1.jpg')
     # resize('1604.png')
-    
+    toBlack('test1.jpg')

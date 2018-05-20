@@ -25,7 +25,7 @@ public:
 	void run(Player &player, GameMessageBox &box) {
 		if (!check(player.x, player.y))
 			return;
-		box.add("点击空格进入下一张地图", 30);
+		box.add("点击空格进入下一张地图", 5);
 		if (box.element_message == (PLAYER | CHECK_TRUE)) {
 			box.element_message = DOOR + next_map;
 			player.x = next_x;

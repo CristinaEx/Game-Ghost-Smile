@@ -2,9 +2,9 @@
 #include "boss.h"
 #include <math.h>
 
-#define ATTACK_MODE 0x2000
-#define TIRED_MODE 0x3000
-#define END_MODE 0x4000
+#define DOG_ATTACK_MODE 0x2000
+#define DOG_TIRED_MODE 0x3000
+#define DOG_END_MODE 0x4000
 
 class Dog : public Boss {
 public:
@@ -23,22 +23,38 @@ public:
 		pic.push_back(img.Detach());
 		img.Load("img\\dog\\left_dog.jpg");
 		pic.push_back(img.Detach());
+		img.Load("img\\dog\\pre_dog.jpg");
+		pic.push_back(img.Detach());
+		img.Load("img\\dog\\tired_dog.jpg");
+		pic.push_back(img.Detach());
 	}
 
 	void paint(HWND &hwnd) {
 		HDC g_hdc = GetDC(hwnd);
 		HDC mmhdc = CreateCompatibleDC(g_hdc);
 		int index;
-		switch (mode & 0x000f) {
-		case RIGHT:
-			index = 0;
+		switch (mode & 0xf000) {
+		case START_MODE:
+			index = 2;
 			break;
-		case LEFT:
-			index = 1;
+		case DOG_TIRED_MODE:
+			index = 3;
+			break;
+		case DOG_END_MODE:
+			index = 3;
 			break;
 		default:
-			index = 0;
-			break;
+			switch (mode & 0x000f) {
+			case RIGHT:
+				index = 0;
+				break;
+			case LEFT:
+				index = 1;
+				break;
+			default:
+				index = 0;
+				break;
+			}
 		}
 		SelectObject(mmhdc, pic[index]);//将图片放到HDC上  
 		TransparentBlt(g_hdc, x, y, 50, 50, mmhdc, 0, 0, 50, 50, RGB(1, 1, 1));//RGB(1,1,1)代表自定义黑色  																   //BitBlt(g_hdc, x, y, 100, 150, mmhdc, 0, 0, SRCCOPY);//拷贝到设备环境上  
@@ -68,7 +84,7 @@ public:
 			break;
 		case 1300:
 			box.add("它看起来累坏了。", 30);
-			mode = (mode & 0x0fff) | TIRED_MODE;
+			mode = (mode & 0x0fff) | DOG_TIRED_MODE;
 			box.element_message = CHECK_EMPTY;
 			break;
 		case 1330:
@@ -91,7 +107,7 @@ public:
 			else mode = (mode & 0xfff0) | RIGHT;
 
 			if (sleep < 0 && pow(x - player.x,2) + pow(y - player.y,2) <= 22500) {
-				mode = (mode & 0x0fff) | ATTACK_MODE;
+				mode = (mode & 0x0fff) | DOG_ATTACK_MODE;
 				attack_x = player.x;
 				attack_y = player.y;
 				sleep = 30;//攻击模式间隔30帧
@@ -104,7 +120,7 @@ public:
 				sleep--;
 			}
 			break;
-		case ATTACK_MODE:
+		case DOG_ATTACK_MODE:
 			if (pow(x - player.x, 2) + pow(y - player.y, 2) <= 1600) {
 				player.hp_now -= 1;
 			}
@@ -115,14 +131,14 @@ public:
 				y += (y > attack_y ? -20 : 20);
 			}
 			break;
-		case TIRED_MODE:
+		case DOG_TIRED_MODE:
 			if (pow(x - player.x, 2) + pow(y - player.y, 2) <= 1600 && (box.element_message == (PLAYER | CHECK_TRUE))) {
 				player.exp_now += 20;
 				box.add("笑摸狗头。", 30);
-				mode = (mode & 0x0fff) | END_MODE;
+				mode = (mode & 0x0fff) | DOG_END_MODE;
 			}
 			break;
-		case END_MODE:
+		case DOG_END_MODE:
 			break;
 		default:
 			break;

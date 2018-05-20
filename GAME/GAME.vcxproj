@@ -155,11 +155,13 @@
     <ClInclude Include="ElementFactory.h" />
     <ClInclude Include="GAME.h" />
     <ClInclude Include="GameEneginer.h" />
+    <ClInclude Include="LineAttack.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="GameMessageBox.h" />
     <ClInclude Include="MusicPlayer.h" />
     <ClInclude Include="boss.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="PosAttack.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sans.h" />
     <ClInclude Include="SpecialAttack.h" />

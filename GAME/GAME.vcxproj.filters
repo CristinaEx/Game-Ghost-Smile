@@ -75,6 +75,12 @@
     <ClInclude Include="SpecialAttack.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="LineAttack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PosAttack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
