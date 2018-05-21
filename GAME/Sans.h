@@ -216,6 +216,7 @@ public:
 		case 5500:
 			box.add("看起来Sans已经很累了。", 90);
 			mode = SANS_TIRED_MODE;
+			box.element_message = CHECK_EMPTY;
 			break;
 		case 5600:
 			box.add("快趁Sans很累的时候拆他一根骨头做为纪念吧。", 90);
@@ -318,6 +319,7 @@ public:
 				player.exp_now += 100;
 				box.add("看起来很疼的样子。", 50);
 				mode = SANS_END_MODE;
+				box.element_message = CHECK_EMPTY;
 			}
 			break;
 		case SANS_END_MODE:

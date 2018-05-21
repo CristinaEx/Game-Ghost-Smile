@@ -30,9 +30,7 @@ public:
 			box.element_message = DOOR + next_map;
 			player.x = next_x;
 			player.y = next_y;
-		}
-			
-			
+		}			
 	}
 private:
 	//使用c作为分隔符切割字符串s

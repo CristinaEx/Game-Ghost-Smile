@@ -141,6 +141,7 @@ public:
 				player.exp_now += 20;
 				box.add("Ð¦Ãþ¹·Í·¡£", 30);
 				mode = (mode & 0x0fff) | DOG_END_MODE;
+				box.element_message = CHECK_EMPTY;
 			}
 			break;
 		case DOG_END_MODE:

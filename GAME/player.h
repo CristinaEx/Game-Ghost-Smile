@@ -9,8 +9,8 @@
 
 #define TO_RIGHT 0x0010
 #define TO_LEFT 0x0020
-#define TO_TOP 0x0030
-#define TO_BUTTON 0x0040
+#define TO_TOP 0x0100
+#define TO_BUTTON 0x0200
 #define TO_FAST_RIGHT 0x0050
 #define TO_FAST_LEFT 0x0060
 #define TO_FAST_TOP 0x0070
@@ -73,13 +73,18 @@ public:
 			if (x >= 10)x -= 10; 
 			mode = mode & 0xff0f;
 			break;
+		default:
+			break;
+		}
+		switch (mode & 0xff00) {
 		case NORMAL_MODE | TO_TOP:
 			if (y >= 10)y -= 10;
-			mode = mode & 0xff0f;
+			mode = mode & 0xf0ff;
 			break;
 		case NORMAL_MODE | TO_BUTTON:
 			if (y <= 500)y += 10;
-			mode = mode & 0xff0f;
+			mode = mode & 0xf0ff;
+			break;
 		default:
 			break;
 		}
