@@ -169,10 +169,10 @@ public:
 			box.add("Sans:留 在 这", 20);
 			break;
 		case 540:
-			box.add("Sans:留 在 这 了", 20);
+			box.add("Sans:留 在 这 里", 20);
 			break;
 		case 560:
-			box.add("Sans:留 在 这 了 。", 20);
+			box.add("Sans:留 在 这 里 了", 20);
 			break;
 		case 580:
 			mode = SANS_ATTACK_MODE_3;
