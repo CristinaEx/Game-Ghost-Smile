@@ -44,7 +44,7 @@ def toBlack(pic_name):
 
 if __name__ == '__main__':
     # cut('2.jpg',330,300,140,100,'test.jpg')
-    transpose('test.jpg')
-    # resize('test.jpg',(50,50),'test1.jpg')
+    # transpose('test.jpg')
+    resize('hp_adder.jpg',(50,50),'hp_adder.jpg')
     # resize('1604.png')
-    # toBlack('test1.jpg')
+    # toBlack('hp_adder.jpg')

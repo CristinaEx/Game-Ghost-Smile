@@ -12,9 +12,10 @@ public:
 	Player player;//玩家
 	GameMessageBox box;//消息盒
 	GameEneginer() {}
-	GameEneginer(HWND &hwnd, MusicPlayer &player) : box(hwnd){
+	GameEneginer(HWND &hwnd, MusicPlayer &py) : box(hwnd){
 		this->hwnd = hwnd;
-		map = Map(player);
+		map = Map(py);
+		player = Player(box);
 	}
 	//游戏内容初始化
 	//若data_path为NULL，则创建新游戏

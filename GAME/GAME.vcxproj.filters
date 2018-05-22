@@ -81,6 +81,18 @@
     <ClInclude Include="PosAttack.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Bag.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ThingOfBag.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HpAdder.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EmptyThing.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

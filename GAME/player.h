@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include "Bag.h"
 
 #define RIGHT 0x0000
 #define LEFT 0x0001
@@ -31,7 +32,9 @@ public:
 	int x;//横坐标
 	int y;//纵坐标
 	std::vector<HBITMAP> pic;//贴图
+	Bag bag;
 	Player(){}
+	Player(GameMessageBox &box) : bag(box){}
 	void init() {
 		mode = NORMAL_MODE | RIGHT;
 		exp_max = 10;
@@ -48,11 +51,13 @@ public:
 		x = 200;
 		y = 400;
 		img.Destroy();
+		bag.init();
 	}
 	//绘制
 	void paint(HWND hwnd) {
 		paintPlayer(hwnd);
 		paintMessage(hwnd);
+		if(bag.visable)bag.paint(hwnd);
 	}
 	//执行处理操作
 	void run() {
@@ -64,6 +69,8 @@ public:
 			hp_now = hp_max;
 			level++;
 		}
+		if (hp_now > hp_max)
+			hp_now = hp_max;
 		switch (mode & 0xf0f0) {
 		case NORMAL_MODE | TO_RIGHT:
 			if(x <= 890)x += 10;

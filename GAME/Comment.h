@@ -1,6 +1,7 @@
 #pragma once
 #include "StaticElement.h"
 
+//一个Element可以通过GameMessageBox进行广播
 class Comment : public StaticElement {
 public:
 	std::string word;
