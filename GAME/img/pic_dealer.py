@@ -43,8 +43,8 @@ def toBlack(pic_name):
     img.save(pic_name)
 
 if __name__ == '__main__':
-    # cut('2.jpg',330,300,140,100,'test.jpg')
+    cut('over.jpg',180,100,400,400,'test.jpg')
     # transpose('test.jpg')
-    # resize('hp_adder.jpg',(50,50),'hp_adder.jpg')
+    resize('test.jpg',(50,50),'test.jpg')
     # resize('1604.png')
-    toBlack('Thing\\bag.jpg')
+    toBlack('test.jpg')

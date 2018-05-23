@@ -150,6 +150,7 @@
     <ClInclude Include="Bag.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="Comment.h" />
+    <ClInclude Include="DataDealer.h" />
     <ClInclude Include="dog.h" />
     <ClInclude Include="door.h" />
     <ClInclude Include="Element.h" />

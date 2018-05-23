@@ -48,6 +48,8 @@ public:
 		img.Destroy();
 		img.Load("img\\player\\left_player.jpg");
 		pic.push_back(img.Detach());
+		img.Load("img\\player\\head_player.jpg");
+		pic.push_back(img.Detach());
 		x = 200;
 		y = 400;
 		img.Destroy();
@@ -64,7 +66,7 @@ public:
 		//处理升级操作
 		while (exp_max <= exp_now) {
 			exp_now -= exp_max;
-			exp_max *= 2;
+			exp_max *= 1.1;
 			hp_max += 5;
 			hp_now = hp_max;
 			level++;
@@ -104,13 +106,48 @@ private:
 	//打印当前信息
 	void paintMessage(HWND hwnd) {
 		HDC g_hdc = GetDC(hwnd);
-		std::string str = "当前等级:" + 
-			int2str(level) + 
-			"  经验值:" + 
-			int2str(exp_now) + '/' + int2str(exp_max) +
-			"  HP:" + 
-			int2str(hp_now) + '/' + int2str(hp_max);
-		TextOut(g_hdc, 20, 20, str.c_str(), str.length());
+		HDC mmhdc = CreateCompatibleDC(g_hdc);
+		std::string str = "当前等级:" + int2str(level);
+		SetTextColor(g_hdc, RGB(255, 255, 255));
+		SetBkColor(g_hdc, RGB(0, 0, 0));
+		TextOut(g_hdc, 70, 20, str.c_str(), str.length());
+		TextOut(g_hdc, 70, 35, _T("EXP:"), 4);
+		TextOut(g_hdc, 70, 50, _T("HP:"), 3);
+		HBITMAP *hp = (HBITMAP *)SelectObject(mmhdc, pic[2]);//将图片放到HDC上  
+		TransparentBlt(g_hdc, 20, 20, 50, 50, mmhdc, 0, 0, 50, 50, RGB(1, 1, 1));//RGB(1,1,1)代表自定义黑色  																   //BitBlt(g_hdc, x, y, 100, 150, mmhdc, 0, 0, SRCCOPY);//拷贝到设备环境上  
+		SelectObject(mmhdc, hp);
+		//创建实线，宽度为2，白色的笔
+		HPEN hPen = CreatePen(PS_SOLID, 2, RGB(255, 255, 255));
+		//将笔选入DC
+		HPEN *hOldPen = (HPEN*)SelectObject(g_hdc, hPen);
+		//创建一个黑色的刷子
+		HBRUSH hBrush = CreateSolidBrush(RGB(0, 0, 0));
+		HBRUSH *oldBrush = (HBRUSH*)SelectObject(g_hdc, hBrush);
+		Rectangle(g_hdc, 100, 35, 300, 50);
+		Rectangle(g_hdc, 100, 52, 300, 67);
+		//删除Pen
+		SelectObject(g_hdc, hOldPen);
+		DeleteObject(hPen);
+		//绘制EXP
+		HBRUSH anotherBrush = CreateSolidBrush(RGB(0, 0, 255));
+		SelectObject(g_hdc, anotherBrush);
+		Rectangle(g_hdc, 100, 37, 100 + (exp_now * 200 / exp_max), 48);
+		//绘制HP
+		HBRUSH otherBrush = CreateSolidBrush(RGB(255, 0, 0));
+		SelectObject(g_hdc, otherBrush);
+		Rectangle(g_hdc, 100, 54, 100 + (hp_now * 200 / hp_max) , 65);
+		SetBkMode(g_hdc, TRANSPARENT);
+		str = int2str(exp_now) + '/' + int2str(exp_max);
+		TextOut(g_hdc, 150, 35, str.c_str(), str.length());
+		str = int2str(hp_now) + '/' + int2str(hp_max);
+		TextOut(g_hdc, 150, 52, str.c_str(), str.length());
+		//放回oldBrush
+		SelectObject(g_hdc, oldBrush);
+		//删除Brush
+		DeleteObject(otherBrush);
+		DeleteObject(anotherBrush);
+		DeleteObject(hBrush);
+		DeleteDC(mmhdc);
 		ReleaseDC(hwnd, g_hdc);
 	}
 	//打印玩家角色贴图

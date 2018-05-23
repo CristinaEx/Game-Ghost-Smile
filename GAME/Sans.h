@@ -6,6 +6,8 @@
 #include "LineAttack.h"
 #include "PosAttack.h"
 #include <vector>
+#include "DataDealer.h"
+#include <string>
 
 #define SANS_TALK_MODE_1 0x0001
 #define SANS_TALK_MODE_2 0x0002
@@ -19,6 +21,8 @@
 #define SANS_NORMAL_MODE_2 0x000a
 #define SANS_TIRED_MODE 0x000b
 #define SANS_END_MODE 0x000c
+
+#define SANS_DATA_NAME "sans.dat"
 
 class Sans : public Boss {
 public:
@@ -78,6 +82,10 @@ public:
 		attacks.push_back(new PosAttack(0, 0, 1));
 		attacks.push_back(new PosAttack(0, 0, 1));
 		attacks.push_back(new PosAttack(0, 0, 1));
+		if (DataDealer::checkFileExist(std::string(DATA_PATH) + std::string(SANS_DATA_NAME))) {
+			count = 100000;
+			mode = SANS_END_MODE;
+		}
 	}
 
 	void paint(HWND &hwnd) {
@@ -214,6 +222,7 @@ public:
 			box.add("Snas:它一直在你的耳边。", 90);
 			break;
 		case 5500:
+			DataDealer::writeFile(std::string(DATA_PATH) + std::string(SANS_DATA_NAME), "1");
 			box.add("看起来Sans已经很累了。", 90);
 			mode = SANS_TIRED_MODE;
 			box.element_message = CHECK_EMPTY;
@@ -223,6 +232,9 @@ public:
 			break;
 		case 5700:
 			box.add("(走近后点击空格)", 900);
+			break;
+		case 100030:
+			box.add("呼...", 100);
 			break;
 		default:
 			break;
