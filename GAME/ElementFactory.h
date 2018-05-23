@@ -6,6 +6,7 @@
 #include "Comment.h"
 #include "dog.h"
 #include "Sans.h"
+#include "papyrus.h"
 
 //游戏内动态或静态成员元素工厂
 //通过getClass获取每个元素的实例
@@ -27,6 +28,9 @@ public:
 		}
 		else if (class_name.compare("Sans") == 0) {
 			return new Sans(data);
+		}
+		else if (class_name.compare("Papyrus") == 0) {
+			return new Papyrus(data);
 		}
 		//...
 	}

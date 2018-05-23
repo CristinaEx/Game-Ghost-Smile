@@ -50,6 +50,7 @@ public:
 				break;
 			}
 		}
+		in.close();
 		img.Destroy();
 	}
 

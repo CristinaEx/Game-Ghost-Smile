@@ -55,10 +55,22 @@ public:
 	}
 	static void writeFile(std::string file_path_name , std::string data) {
 		std::ofstream out;
-		out.open(file_path_name, std::ios::out | std::ios::app);  //以写入和在文件末尾添加的方式打开文件，没有的话就创建该文件。
+		out.open(file_path_name, std::ios::out);  //以写入的方式打开文件，没有的话就创建该文件。
 		if (!out.is_open())
 			return;
 		out << data;
 		out.close();
+	}
+	//读取文件第一行
+	//若第一行为空则返回空字符串
+	static std::string readFileFirstLine(std::string file_path_name) {
+		std::ifstream in(file_path_name, std::ios::in);
+		std::string data;
+		if (!in.eof())
+			getline(in, data);
+		else
+			data = "";
+		in.close();
+		return data;
 	}
 };

@@ -164,6 +164,7 @@
     <ClInclude Include="GameMessageBox.h" />
     <ClInclude Include="MusicPlayer.h" />
     <ClInclude Include="boss.h" />
+    <ClInclude Include="papyrus.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="PosAttack.h" />
     <ClInclude Include="Resource.h" />

@@ -96,6 +96,9 @@
     <ClInclude Include="DataDealer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="papyrus.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
