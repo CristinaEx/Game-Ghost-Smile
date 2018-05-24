@@ -1,0 +1,7 @@
+img\map\1607.png
+bgm\highwall.wav
+Papyrus 500 400 10
+Wall 0 300 960 20 4
+Wall 0 450 960 20 3
+Door 900 320 50 120 1608 0 380
+Undyne 0 400

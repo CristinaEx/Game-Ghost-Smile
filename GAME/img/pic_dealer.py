@@ -43,8 +43,8 @@ def toBlack(pic_name):
     img.save(pic_name)
 
 if __name__ == '__main__':
-    # cut('pa7.png',20,10,130,200,'test.png')
-    transposeMirror('papyrus_talk_1.png')
-    # resize('test.png',(65,100),'test.png')
+    # cut('2.jpg',220,10,170,238,'test.jpg')
+    # transposeMirror('papyrus_talk_1.png')
+    # resize('fall_attack.png',(25,50),'test.png')
     # resize('1604.png')
-    # toBlack('test.png')
+    toBlack('move_attack.png')

@@ -4,7 +4,7 @@
 #include <sstream>
 #include <atlimage.h> 
 
-class HpAdder : ThingOfBag{
+class HpAdder : public ThingOfBag{
 public:
 	int value;//加血的数值
 	HBITMAP pic;

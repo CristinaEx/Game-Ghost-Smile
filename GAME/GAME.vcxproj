@@ -156,12 +156,14 @@
     <ClInclude Include="Element.h" />
     <ClInclude Include="ElementFactory.h" />
     <ClInclude Include="EmptyThing.h" />
+    <ClInclude Include="FallAttack.h" />
     <ClInclude Include="GAME.h" />
     <ClInclude Include="GameEneginer.h" />
     <ClInclude Include="HpAdder.h" />
     <ClInclude Include="LineAttack.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="GameMessageBox.h" />
+    <ClInclude Include="MoveAttack.h" />
     <ClInclude Include="MusicPlayer.h" />
     <ClInclude Include="boss.h" />
     <ClInclude Include="papyrus.h" />
@@ -174,6 +176,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ThingOfBag.h" />
+    <ClInclude Include="undyne.h" />
     <ClInclude Include="wall.h" />
   </ItemGroup>
   <ItemGroup>

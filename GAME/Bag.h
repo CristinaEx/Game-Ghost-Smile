@@ -37,10 +37,10 @@ public:
 		BitBlt(g_hdc, 700, 400, 188, 132, mmhdc, 0, 0, SRCCOPY);
 		if (bag[0]->count > 0)bag[0]->paint(hwnd, 705, 405);
 		if (bag[1]->count > 0)bag[1]->paint(hwnd, 770, 405);
-		if (bag[2]->count > 0)bag[2]->paint(hwnd, 840, 405);
+		if (bag[2]->count > 0)bag[2]->paint(hwnd, 835, 405);
 		if (bag[3]->count > 0)bag[3]->paint(hwnd, 705, 480);
 		if (bag[4]->count > 0)bag[4]->paint(hwnd, 770, 480);
-		if (bag[5]->count > 0)bag[5]->paint(hwnd, 840, 480);
+		if (bag[5]->count > 0)bag[5]->paint(hwnd, 835, 480);
 		TextOut(g_hdc, 750, 450, _T("Q"), 1);
 		TextOut(g_hdc, 815, 450, _T("W"), 1);
 		TextOut(g_hdc, 880, 450, _T("E"), 1);
@@ -66,6 +66,7 @@ public:
 			else {
 				mode = false;
 				bag[index] = thing;
+				break;
 			}
 		}
 		if (mode)

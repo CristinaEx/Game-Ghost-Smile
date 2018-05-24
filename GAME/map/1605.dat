@@ -1,5 +1,6 @@
 img\map\1605.png
 bgm\Distortion.wav
 Wall 0 110 960 20 4
-Door 670 90 150 50 1603 740 500
+Door 670 90 150 50 1606 0 500
+Door 0 150 30 490 1604 900 370
 Papyrus 500 300 1

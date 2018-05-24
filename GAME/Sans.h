@@ -234,7 +234,7 @@ public:
 			box.add("(走近后点击空格)", 900);
 			break;
 		case 100030:
-			box.add("呼...", 100);
+			box.add("Sans:呼...", 100);
 			break;
 		default:
 			break;

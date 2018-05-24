@@ -99,6 +99,15 @@
     <ClInclude Include="papyrus.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="undyne.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FallAttack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveAttack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
