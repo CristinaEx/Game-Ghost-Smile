@@ -22,7 +22,7 @@ public:
 	void init(std::string data_path = "") {
 		if (data_path.empty()) {
 			//创建新游戏
-			map.init(1608);
+			map.init();
 			player.init();
 		}
 		else {
