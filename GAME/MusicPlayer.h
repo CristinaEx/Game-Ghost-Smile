@@ -1,8 +1,8 @@
 #pragma once
-#include<windows.h>
+#include <windows.h>
 #include <mmsystem.h>
-#include<dsound.h>
-#include<string>
+#include <dsound.h>
+#include <string>
 #include <sstream>
 #pragma comment(lib, "WINMM.LIB")
 class MusicPlayer {

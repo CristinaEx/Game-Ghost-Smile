@@ -5,9 +5,10 @@
 #include <atlimage.h> 
 
 class HpAdder : public ThingOfBag{
+	//加血物品
 public:
 	int value;//加血的数值
-	HBITMAP pic;
+	HBITMAP pic;//贴图
 	HpAdder(int value) {
 		CImage img;
 		img.Load("img\\Thing\\hp_adder.jpg");
@@ -16,6 +17,7 @@ public:
 		img.Destroy();
 		this->value = value;
 	}
+	//使用
 	void use(int &effect_data , GameMessageBox &box) {
 		if (count > 0) {
 			effect_data += value;
@@ -23,6 +25,7 @@ public:
 			count--;
 		}
 	}
+	//绘制
 	void paint(HWND &hwnd ,int x ,int y) {
 		HDC g_hdc = GetDC(hwnd);
 		HDC mmhdc = CreateCompatibleDC(g_hdc);

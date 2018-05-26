@@ -53,6 +53,8 @@ public:
 		else
 			return true;
 	}
+
+	//写入文件
 	static void writeFile(std::string file_path_name , std::string data) {
 		std::ofstream out;
 		out.open(file_path_name, std::ios::out);  //以写入的方式打开文件，没有的话就创建该文件。
