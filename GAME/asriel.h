@@ -9,7 +9,7 @@
 
 class Asriel : public Boss {
 public:
-	int count = 2200;//记录当前流程
+	int count = 0;//记录当前流程
 	Asriel(std::string data) {
 		std::vector<std::string> datas = splitString(data, ' ');
 		x = str2int(datas[0]);
