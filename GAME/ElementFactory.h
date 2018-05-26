@@ -8,6 +8,7 @@
 #include "Sans.h"
 #include "papyrus.h"
 #include "undyne.h"
+#include "asriel.h"
 
 //游戏内动态或静态成员元素工厂
 //通过getClass获取每个元素的实例
@@ -35,6 +36,9 @@ public:
 		}
 		else if (class_name.compare("Undyne") == 0) {
 			return new Undyne(data);
+		}
+		else if (class_name.compare("Asriel") == 0) {
+			return new Asriel(data);
 		}
 		//...
 	}

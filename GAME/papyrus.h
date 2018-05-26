@@ -156,7 +156,7 @@ public:
 				box.add("Papyrus:糟了，我们被Undyne发现了，小家伙，快跟我走！", 90);
 				mode = PAPYRUS_GOING_MODE;
 				break;
-			case 6030:
+			case 8030:
 				box.add("Papyrus:你自己进去找Asriel吧，小家伙，我们下次再见~", 90);
 				mode = PAPYRUS_GOING_MODE;
 				break;

@@ -11,6 +11,7 @@
 #define PLAYER 0x1000
 #define DOOR 0x2000
 #define GAMEENEGINER 0x3000
+#define END 0x4000
 
 class GameMessageBox {
 public:

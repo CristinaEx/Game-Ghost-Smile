@@ -108,6 +108,9 @@
     <ClInclude Include="MoveAttack.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="asriel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
